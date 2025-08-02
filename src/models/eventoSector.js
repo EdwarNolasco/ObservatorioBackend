@@ -26,10 +26,10 @@ const EventoSector = db.define('EventoSector', {
         type: DataTypes.DATE,
         allowNull: false
     },
-    pais_afectado: {
+    /*pais_afectado: {
         type: DataTypes.CHAR(3),
         allowNull: false
-    },
+    },*/
     empresa_relacionada: {
         type: DataTypes.INTEGER,
         allowNull: true

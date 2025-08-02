@@ -22,10 +22,10 @@ const EncuestaDemanda = db.define('EncuestaDemanda', {
         type: DataTypes.INTEGER,
         allowNull: false
     },
-    pais: {
+    /*pais: {
         type: DataTypes.CHAR(3),
         allowNull: false
-    },
+    },*/
 }, {
     tableName: 'encuestas_demanda',
     timestamps: true
