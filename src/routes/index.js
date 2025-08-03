@@ -4,7 +4,7 @@ const router = express.Router();
 const rutasAuth = require('./rutasAuth');
 const rutasRegistroAcceso = require('./rutasRegistroAcceso');
 const rutasEmpresa = require('./rutasEmpresa');
-const rutasEmpresaTendencia = require('./rutasEmpresaTendencia');
+
 const rutasEncuestaDemanda = require('./rutasEncuestaDemanda');
 const rutasEventoSector = require('./rutasEventoSector');
 const rutasIndicadorEconomico = require('./rutasIndicadorEconomico');
@@ -18,7 +18,6 @@ const rutasFrontend = require('./rutasFrontend');
 router.use('/auth', rutasAuth);
 router.use('/registro-acceso', rutasRegistroAcceso);
 router.use('/empresa', rutasEmpresa);
-router.use('/empresa-tendencia', rutasEmpresaTendencia);
 router.use('/encuesta-demanda', rutasEncuestaDemanda);
 router.use('/evento-sector', rutasEventoSector);
 router.use('/indicador-economico', rutasIndicadorEconomico);

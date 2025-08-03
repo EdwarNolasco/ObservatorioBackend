@@ -1,6 +1,7 @@
 const {DataTypes} = require('sequelize');
 const db = require('../config/db.js');
 const Pais = require('./pais.js');
+const TendenciaTecnologica = require('./tendenciatecnologica.js');
 
 const Empresa = db.define('Empresa', {
     id_empresa: {
@@ -41,6 +42,10 @@ const Empresa = db.define('Empresa', {
         type: DataTypes.TEXT,
         allowNull: true,
     },
+    id_tendencia: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+    },
     imagen_empresa: {
         type: DataTypes.STRING,
         allowNull: true,
@@ -53,5 +58,8 @@ const Empresa = db.define('Empresa', {
 // Relación con el modelo Pais
 Pais.hasMany(Empresa, { foreignKey: 'pais' });
 Empresa.belongsTo(Pais, { foreignKey: 'pais' });
+
+TendenciaTecnologica.hasMany(Empresa, { foreignKey: 'id_tendencia' });
+Empresa.belongsTo(TendenciaTecnologica, { foreignKey: 'id_tendencia' });
 
 module.exports = Empresa;
