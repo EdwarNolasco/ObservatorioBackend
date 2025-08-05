@@ -1,81 +1,105 @@
-const { ProductoServicio, Empresa } = require('../../models'); // Ajusta la ruta si es necesario
+const { validationResult } = require('express-validator');
+const ProductoServicio = require('../models/productoservicio');
+const { Op } = require('sequelize');
 
-exports.getAllProductosServicios = async (req, res) => {
+const controladorProductoServicio = {};
+
+controladorProductoServicio.listar = async (req, res) => {
   try {
-    const productosServicios = await ProductoServicio.findAll({
-      include: [{ model: Empresa, attributes: ['nombre_empresa'] }],
-    });
-    res.status(200).json(productosServicios);
+    const productos = await ProductoServicio.findAll();
+    res.json(productos);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Error al obtener productos/servicios', error: error.message });
+    res.status(500).json({ error: error.message });
   }
 };
 
-exports.getProductoServicioById = async (req, res) => {
+controladorProductoServicio.obtenerPorId = async (req, res) => {
+  const id = req.params.id;
   try {
-    const { id } = req.params;
-    const productoServicio = await ProductoServicio.findByPk(id, {
-      include: [{ model: Empresa, attributes: ['nombre_empresa'] }],
-    });
-    if (!productoServicio) {
-      return res.status(404).json({ message: 'Producto/Servicio no encontrado' });
+    const producto = await ProductoServicio.findByPk(id);
+    if (!producto) {
+      return res.status(404).json({ msg: 'Producto o servicio no encontrado' });
     }
-    res.status(200).json(productoServicio);
+    res.json(producto);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Error al obtener producto/servicio', error: error.message });
+    res.status(500).json({ error: error.message });
   }
 };
 
-exports.createProductoServicio = async (req, res) => {
+controladorProductoServicio.buscarPorNombre = async (req, res) => {
+  const searchTerm = req.query.q;
   try {
-    const { id_empresa, nombre, tipo, descripcion, fecha_lanzamiento } = req.body;
-    const newProductoServicio = await ProductoServicio.create({
-      id_empresa,
-      nombre,
-      tipo,
-      descripcion,
-      fecha_lanzamiento,
+    const productos = await ProductoServicio.findAll({
+      where: {
+        nombre: {
+          [Op.like]: `${searchTerm}%`
+        }
+      },
+      limit: 20
     });
-    res.status(201).json(newProductoServicio);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Error al crear producto/servicio', error: error.message });
-  }
-};
-
-exports.updateProductoServicio = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const { id_empresa, nombre, tipo, descripcion, fecha_lanzamiento } = req.body;
-    const [updatedRows] = await ProductoServicio.update(
-      { id_empresa, nombre, tipo, descripcion, fecha_lanzamiento },
-      { where: { id_producto: id } }
-    );
-    if (updatedRows === 0) {
-      return res.status(404).json({ message: 'Producto/Servicio no encontrado' });
+    if (productos.length === 0) {
+      return res.status(404).json({ msg: 'No se encontraron productos con ese nombre' });
     }
-    const updatedProductoServicio = await ProductoServicio.findByPk(id);
-    res.status(200).json(updatedProductoServicio);
+    res.json(productos);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Error al actualizar producto/servicio', error: error.message });
+    res.status(500).json({ error: error.message });
   }
 };
 
-exports.deleteProductoServicio = async (req, res) => {
+controladorProductoServicio.guardar = async (req, res) => {
   try {
-    const { id } = req.params;
-    const deletedRows = await ProductoServicio.destroy({
-      where: { id_producto: id },
+    const nuevoProducto = await ProductoServicio.create({
+      id_empresa: req.body.id_empresa,
+      nombre: req.body.nombre,
+      tipo: req.body.tipo,
+      descripcion: req.body.descripcion,
+      fecha_lanzamiento: req.body.fecha_lanzamiento,
+      imagen_producto: req.body.imagen_producto
     });
-    if (deletedRows === 0) {
-      return res.status(404).json({ message: 'Producto/Servicio no encontrado' });
-    }
-    res.status(204).send(); // No Content
+    res.status(201).json({ 
+      mensaje: 'Producto o servicio registrado', 
+      producto: nuevoProducto 
+    });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Error al eliminar producto/servicio', error: error.message });
+    res.status(500).json({ error: error.message });
   }
 };
+
+controladorProductoServicio.editar = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const producto = await ProductoServicio.findByPk(id);
+    if (!producto) {
+      return res.status(404).json({ msg: 'Producto o servicio no encontrado' });
+    }
+    await producto.update({
+      nombre: req.body.nombre,
+      tipo: req.body.tipo,
+      descripcion: req.body.descripcion,
+      fecha_lanzamiento: req.body.fecha_lanzamiento,
+      imagen_producto: req.body.imagen_producto
+    });
+    res.json({ 
+      msg: `Producto o servicio con id ${id} actualizado correctamente`,
+      producto
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+controladorProductoServicio.eliminar = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const producto = await ProductoServicio.findByPk(id);
+    if (!producto) {
+      return res.status(404).json({ msg: 'Producto o servicio no encontrado' });
+    }
+    await producto.destroy();
+    res.json({ msg: `Producto o servicio con id ${id} eliminado correctamente` });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+module.exports = controladorProductoServicio;

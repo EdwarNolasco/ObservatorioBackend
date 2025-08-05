@@ -1,3 +1,4 @@
+const cors = require('cors');
 const express = require('express');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
@@ -101,13 +102,15 @@ db.authenticate()
         console.error('Error al conectar a la base de datos:', err);
     });
 
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 3001);
 app.use(morgan('dev'));
 app.use(express.json());
 app.use('/uploads', express.static('uploads'));
 app.use(cookieParser());
 app.use(passport.initialize());
 app.use('/api', require('./routes/index.js'));
+app.use(cors());
+
 app.use((err, req, res, next) => {
   if (err instanceof multer.MulterError || err.message.includes('Solo se permiten imágenes')) {
     return res.status(400).json({ error: err.message });

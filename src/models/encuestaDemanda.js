@@ -22,10 +22,6 @@ const EncuestaDemanda = db.define('EncuestaDemanda', {
         type: DataTypes.INTEGER,
         allowNull: false
     },
-    /*pais: {
-        type: DataTypes.CHAR(3),
-        allowNull: false
-    },*/
 }, {
     tableName: 'encuestas_demanda',
     timestamps: true
@@ -34,10 +30,6 @@ const EncuestaDemanda = db.define('EncuestaDemanda', {
 // Relación con el modelo ProductoServicio
 ProductoServicio.hasMany(EncuestaDemanda, { foreignKey: 'id_producto' });
 EncuestaDemanda.belongsTo(ProductoServicio, { foreignKey: 'id_producto' });
-
-// Relación con el modelo Pais
-//Pais.hasMany(EncuestaDemanda, { foreignKey: 'pais' });
-//EncuestaDemanda.belongsTo(Pais, { foreignKey: 'pais' });
 
 // Exportar el modelo
 module.exports = EncuestaDemanda;
