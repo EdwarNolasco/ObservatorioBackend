@@ -223,6 +223,7 @@ router.post('/',
         .notEmpty().withMessage('El código del país es obligatorio')
         .isString().withMessage('El código del país debe ser una cadena de texto')
         .isLength({ min: 3, max: 3 }).withMessage('El código del país debe tener 3 caracteres'),
+    passport.authenticate('jwt', { session: false }),
     controladorIndicadorEconomico.guardar
 );
 
@@ -246,6 +247,7 @@ router.put('/',
         .optional()
         .isString().withMessage('El código del país debe ser una cadena de texto')
         .isLength({ min: 3, max: 3 }).withMessage('El código del país debe tener 3 caracteres'),
+    passport.authenticate('jwt', { session: false }),
     controladorIndicadorEconomico.editar
 );
 
@@ -253,6 +255,7 @@ router.delete('/',
     query('id_indicador')
         .notEmpty().withMessage('El ID del indicador es obligatorio')
         .isInt().withMessage('El ID debe ser un número entero'),
+    passport.authenticate('jwt', { session: false }),
     controladorIndicadorEconomico.eliminar
 );
 

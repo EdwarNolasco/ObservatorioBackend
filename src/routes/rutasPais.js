@@ -184,6 +184,7 @@ router.post('/',
         .isNumeric().withMessage('El número de empresas de software debe ser un número'),
     body('exportaciones_ti')
         .isNumeric().withMessage('Las exportaciones TI deben ser un número'),
+    passport.authenticate('jwt', { session: false }),
     controladorPais.guardar
 );
 
@@ -200,6 +201,7 @@ router.put('/',
         .isNumeric().withMessage('El número de empresas de software debe ser un número'),
     body('exportaciones_ti')
         .isNumeric().withMessage('Las exportaciones TI deben ser un número'),
+    passport.authenticate('jwt', { session: false }),
     controladorPais.editar
 );
 
@@ -207,6 +209,7 @@ router.delete('/',
     query('codigo_pais')
         .notEmpty().withMessage('El código del país es obligatorio')
         .isString().withMessage('El código del país debe ser una cadena de texto'),
+    passport.authenticate('jwt', { session: false }),
     controladorPais.eliminar
 );
 

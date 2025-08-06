@@ -1,5 +1,6 @@
 const express = require('express');
 const { body, query } = require('express-validator');
+const passport = require('../config/passport');
 const controladorProductoServicio = require('../controllers/controladorProductoServicio');
 const router = express.Router();
 
@@ -229,6 +230,7 @@ router.post('/',
     body('fecha_lanzamiento')
         .optional()
         .isISO8601().withMessage('La fecha de lanzamiento debe ser una fecha válida'),
+    passport.authenticate('jwt', { session: false }),
     controladorProductoServicio.guardar
 );
 
@@ -250,6 +252,7 @@ router.put('/',
     body('fecha_lanzamiento')
         .optional()
         .isISO8601().withMessage('La fecha de lanzamiento debe ser una fecha válida'),
+    passport.authenticate('jwt', { session: false }),
     controladorProductoServicio.editar
 );
 
@@ -257,6 +260,7 @@ router.delete('/',
     query('id_producto')
         .notEmpty().withMessage('El ID del producto es obligatorio')
         .isInt().withMessage('El ID debe ser un número entero'),
+    passport.authenticate('jwt', { session: false }),
     controladorProductoServicio.eliminar
 );
 

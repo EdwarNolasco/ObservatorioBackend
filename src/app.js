@@ -113,20 +113,6 @@ app.get('/swagger.json', (req, res) => {
   res.send(swaggerSpec);
 });
 
-app.use((err, req, res, next) => {
-  if (err instanceof multer.MulterError || err.message.includes('Solo se permiten imágenes')) {
-    return res.status(400).json({ error: err.message });
-  }
-
-  // Mostrar mensaje y stack si estamos en desarrollo
-  console.error('Error no controlado:', err);
-
-  res.status(500).json({
-    error: 'Error interno del servidor',
-    message: err.message,
-    stack: err.stack
-  });
-});
 
 app.listen(app.get('port'), () => {
   console.log('Servidor iniciado en el puerto ' + app.get('port'));

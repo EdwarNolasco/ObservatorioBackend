@@ -6,12 +6,6 @@ const ExtractJwt = require('passport-jwt').ExtractJwt;
 const jwt = require('jsonwebtoken');
 const clave = process.env.CLAVE;
 
-
-exports.getToken = (data) => {
-  return jwt.sign({ ...data }, clave, { expiresIn: '30m' });
-};
-
-
 //acepta token desde cookies y desde headers
 const opts = {
   jwtFromRequest: ExtractJwt.fromExtractors([
@@ -54,4 +48,8 @@ passport.use(
   })
 );
 
-module.exports = passport; // Exportar el objeto passport para usarlo en app.js
+// Exportar tanto passport como getToken
+module.exports = passport;
+module.exports.getToken = (data) => {
+  return jwt.sign({ ...data }, clave, { expiresIn: '30m' });
+};

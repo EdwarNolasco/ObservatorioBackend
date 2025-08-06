@@ -201,6 +201,7 @@ router.post('/',
     body('id_producto')
         .notEmpty().withMessage('El ID del producto/servicio es obligatorio')
         .isInt().withMessage('El ID debe ser un número entero'),
+    passport.authenticate('jwt', { session: false }),
     controladorEncuestaDemanda.guardar
 );
 
@@ -217,6 +218,7 @@ router.put('/',
     body('id_producto')
         .optional()
         .isInt().withMessage('El ID debe ser un número entero'),
+    passport.authenticate('jwt', { session: false }),
     controladorEncuestaDemanda.editar
 );
 
@@ -224,6 +226,7 @@ router.delete('/',
     query('id_encuesta')
         .notEmpty().withMessage('El ID de la encuesta es obligatorio')
         .isInt().withMessage('El ID debe ser un número entero'),
+    passport.authenticate('jwt', { session: false }),
     controladorEncuestaDemanda.eliminar
 );
 

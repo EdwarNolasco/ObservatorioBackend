@@ -1,5 +1,6 @@
 const express = require('express');
 const { body, query } = require('express-validator');
+const passport = require('../config/passport');
 const controladorRegistroAcceso = require('../controllers/controladorRegistrosAcceso');
 const router = express.Router();
 
@@ -84,15 +85,14 @@ const router = express.Router();
  *         accion: "Inicio de sesión"
 */
 
-router.get('/', controladorRegistroAcceso.listar);
+router.get('/', passport.authenticate('jwt', { session: false }), controladorRegistroAcceso.listar);
 
 router.get('/buscar',
     query('id_log')
         .notEmpty().withMessage('El ID del registro es obligatorio')
         .isInt().withMessage('El ID debe ser un número entero'),
+    passport.authenticate('jwt', { session: false }),
     controladorRegistroAcceso.listarPorId
 );
-
-
 
 module.exports = router;

@@ -244,6 +244,7 @@ router.post('/',
     body('descripcion')
         .optional()
         .isString().withMessage('La descripción debe ser una cadena de texto'),
+    passport.authenticate('jwt', { session: false }),
     controladorEventoSector.guardar
 );
 
@@ -271,6 +272,7 @@ router.put('/',
     body('descripcion')
         .optional()
         .isString().withMessage('La descripción debe ser una cadena de texto'),
+    passport.authenticate('jwt', { session: false }),
     controladorEventoSector.editar
 );
 
@@ -278,6 +280,7 @@ router.delete('/',
     query('id_evento')
         .notEmpty().withMessage('El ID del evento es obligatorio')
         .isInt().withMessage('El ID debe ser un número entero'),
+    passport.authenticate('jwt', { session: false }),
     controladorEventoSector.eliminar
 );
 

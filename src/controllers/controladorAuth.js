@@ -3,6 +3,7 @@ const Usuario = require('../models/usuario');
 const RegistroAcceso = require('../models/registroAcceso');
 const { Op } = require('sequelize');
 const argon2 = require('argon2');
+const { getToken } = require('../config/passport');
 const jwt = require('jsonwebtoken');
 
 exports.login = async (req, res) => {
@@ -33,12 +34,8 @@ exports.login = async (req, res) => {
             });
             return res.status(401).json({ msj: 'Usuario o contraseña incorrectos' });
         }
-        // Generar token JWT
-        const token = jwt.sign(
-            { id: buscarUsuario.id_usuario },
-            process.env.JWT_SECRET || 'tu_clave_secreta',
-            { expiresIn: '30m' }
-        );
+        // Generar token JWT usando getToken
+        const token = getToken({ id: buscarUsuario.id_usuario });
         // Guardar el token en una cookie
         res.cookie('token', token, {
           httpOnly: true,

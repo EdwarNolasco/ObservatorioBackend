@@ -1,6 +1,7 @@
 
 const express = require('express');
 const { body, query } = require('express-validator');
+const passport = require('../config/passport');
 const controladorUsuario = require('../controllers/controladorUsuario');
 const router = express.Router();
 
@@ -192,12 +193,13 @@ const router = express.Router();
  *         rol: "admin"
 */
 
-router.get('/', controladorUsuario.listar);
+router.get('/', passport.authenticate('jwt', { session: false }), controladorUsuario.listar);
 
 router.get('/buscar',
     query('id_usuario')
         .notEmpty().withMessage('El ID del usuario es obligatorio')
         .isInt().withMessage('El ID del usuario debe ser un número entero'),
+    passport.authenticate('jwt', { session: false }),
     controladorUsuario.listarPorId
 );
 
@@ -214,6 +216,7 @@ router.post('/',
     body('rol')
         .notEmpty().withMessage('El rol es obligatorio')
         .isIn(['admin', 'analista', 'lector']).withMessage('Rol inválido'),
+    passport.authenticate('jwt', { session: false }),
     controladorUsuario.guardar
 );
 
@@ -232,6 +235,7 @@ router.put('/',
     body('rol')
         .optional()
         .isIn(['admin', 'analista', 'lector']).withMessage('Rol inválido'),
+    passport.authenticate('jwt', { session: false }),
     controladorUsuario.editar
 );
 
@@ -239,6 +243,7 @@ router.delete('/',
     query('id_usuario')
         .notEmpty().withMessage('El ID del usuario es obligatorio')
         .isInt().withMessage('El ID del usuario debe ser un número entero'),
+    passport.authenticate('jwt', { session: false }),
     controladorUsuario.eliminar
 );
 

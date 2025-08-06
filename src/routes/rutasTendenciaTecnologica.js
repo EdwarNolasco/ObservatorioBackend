@@ -169,6 +169,7 @@ router.post('/',
     body('relevancia_region')
         .notEmpty().withMessage('La relevancia regional de la tendencia es obligatoria')
         .isIn(['Alta', 'Media', 'Baja']).withMessage('La relevancia regional debe ser: Alta, Media o Baja'),
+    passport.authenticate('jwt', { session: false }),
     controladorTendenciaTecnologica.guardar
 );
 
@@ -185,6 +186,7 @@ router.put('/',
     body('relevancia_region')
         .notEmpty().withMessage('La relevancia regional de la tendencia es obligatoria')
         .isIn(['Alta', 'Media', 'Baja']).withMessage('La relevancia regional debe ser: Alta, Media o Baja'),
+    passport.authenticate('jwt', { session: false }),
     controladorTendenciaTecnologica.editar
 );
 
@@ -192,6 +194,7 @@ router.delete('/',
     query('id_tendencia')
         .notEmpty().withMessage('El ID de la tendencia es obligatorio')
         .isInt().withMessage('El ID de la tendencia debe ser un número entero'),
+    passport.authenticate('jwt', { session: false }),
     controladorTendenciaTecnologica.eliminar
 );
 

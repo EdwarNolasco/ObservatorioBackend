@@ -1,6 +1,6 @@
 const express = require('express');
 const { body, query } = require('express-validator');
-const passport = require('passport');
+const passport = require('../config/passport');
 const controladorEmpresa = require('../controllers/controladorEmpresa');
 const router = express.Router();
 
@@ -220,6 +220,7 @@ router.post('/',
     body('descripcion')
         .optional()
         .isString().withMessage('La descripción debe ser una cadena de texto'),
+    passport.authenticate('jwt', { session: false }),
     controladorEmpresa.guardar
 );
 router.put('/',
@@ -250,12 +251,14 @@ router.put('/',
     body('descripcion')
         .optional()
         .isString().withMessage('La descripción debe ser una cadena de texto'),
+    passport.authenticate('jwt', { session: false }),
     controladorEmpresa.editar
 );  
 router.delete('/',
     query('id_empresa')
         .notEmpty().withMessage('El ID de la empresa es obligatorio')
         .isInt().withMessage('El ID de la empresa debe ser un número entero'),
+    passport.authenticate('jwt', { session: false }),
     controladorEmpresa.eliminar
 );
 
