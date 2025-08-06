@@ -1,17 +1,19 @@
 const express = require('express');
 const morgan = require('morgan');
-const cookieParser = require('cookie-parser');
+const cookieParser = require('cookie-parser');  
+const { opts } = require('./config/passport.js');
+const { JwtStrategy, ExtractJwt } = require('passport-jwt');
+const passport = require('passport');
+
 const db = require('./config/db.js');
-const passport = require('./config/passport.js');
 
 
 const Empresa = require('./models/empresa.js');
-const EmpresaTendencia = require('./models/EmpresaTendencia.js');
 const EncuestaDemanda = require('./models/encuestaDemanda.js');
-const EventoSector = require('./models/EventoSector.js');
+const EventoSector = require('./models/eventoSector.js');
 const IndicadorEconomico = require('./models/indicadorEconomico.js');
 const Pais = require('./models/pais.js');
-const ProductoServicio = require('./models/productoservicio.js');
+const ProductoServicio = require('./models/productoServicio.js');
 const RegistroAcceso = require('./models/registroAcceso.js');
 const TendenciaTecnologica = require('./models/tendenciatecnologica.js');
 const Usuario = require('./models/usuario.js');
@@ -54,13 +56,6 @@ db.authenticate()
             })
             .catch((err) => {
                 console.error('Error al sincronizar el modelo TendenciaTecnologica:', err);
-            });
-        await EmpresaTendencia.sync()
-            .then(() => {
-                console.log('Modelo EmpresaTendencia sincronizado');
-            })
-            .catch((err) => {
-                console.error('Error al sincronizar el modelo EmpresaTendencia:', err);
             });
         await Usuario.sync()
             .then(() => {

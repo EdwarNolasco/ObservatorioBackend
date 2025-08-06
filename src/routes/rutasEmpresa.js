@@ -1,6 +1,6 @@
 const express = require('express');
 const { body, query } = require('express-validator');
-const passport = require('../config/passport');
+const passport = require('passport');
 const controladorEmpresa = require('../controllers/controladorEmpresa');
 const router = express.Router();
 

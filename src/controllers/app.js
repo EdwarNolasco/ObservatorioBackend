@@ -6,7 +6,6 @@ const passport = require('./config/passport.js');
 
 
 const Empresa = require('./models/empresa.js');
-const EmpresaTendencia = require('./models/EmpresaTendencia.js');
 const EncuestaDemanda = require('./models/encuestaDemanda.js');
 const EventoSector = require('./models/EventoSector.js');
 const IndicadorEconomico = require('./models/indicadorEconomico.js');
@@ -54,13 +53,6 @@ db.authenticate()
             })
             .catch((err) => {
                 console.error('Error al sincronizar el modelo TendenciaTecnologica:', err);
-            });
-        await EmpresaTendencia.sync()
-            .then(() => {
-                console.log('Modelo EmpresaTendencia sincronizado');
-            })
-            .catch((err) => {
-                console.error('Error al sincronizar el modelo EmpresaTendencia:', err);
             });
         await Usuario.sync()
             .then(() => {

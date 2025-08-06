@@ -21,9 +21,7 @@ exports.listarPorId = async (req, res) => {
     try {
         const lista = await TendenciaTecnologica.findAll({
             where: {
-                id_tendencia: {
-                    [Op.like]: `%${id_tendencia}%`
-                }
+                id_tendencia: id_tendencia
             }
         });
         res.json(lista);

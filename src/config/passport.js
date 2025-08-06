@@ -1,10 +1,11 @@
 require('dotenv').config();
+const Usuario = require('../models/usuario');
 const passport = require('passport');
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const jwt = require('jsonwebtoken');
 const clave = process.env.CLAVE;
-const Usuario = require('../models/usuario');
+
 
 exports.getToken = (data) => {
   return jwt.sign({ ...data }, clave, { expiresIn: '30m' });
