@@ -56,59 +56,6 @@ const router = express.Router();
 
 /**
  * @swagger
- * /registro-acceso:
- *   post:
- *     summary: Crea un nuevo registro de acceso
- *     tags: [RegistrosAcceso]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             required:
- *               - id_usuario
- *               - accion
- *             properties:
- *               id_usuario:
- *                 type: integer
- *               accion:
- *                 type: string
- *     responses:
- *       201:
- *         description: Registro de acceso creado correctamente
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/RegistroAcceso'
- *       400:
- *         description: Error de validación
- */
-
-/**
- * @swagger
- * /registro-acceso:
- *   delete:
- *     summary: Elimina un registro de acceso
- *     tags: [RegistrosAcceso]
- *     parameters:
- *       - in: query
- *         name: id_log
- *         schema:
- *           type: integer
- *         required: true
- *         description: ID del registro de acceso a eliminar
- *     responses:
- *       200:
- *         description: Registro de acceso eliminado correctamente
- *       400:
- *         description: Error de validación
- *       404:
- *         description: Registro de acceso no encontrado
- */
-
-/**
- * @swagger
  * components:
  *   schemas:
  *     RegistroAcceso:
@@ -146,21 +93,6 @@ router.get('/buscar',
     controladorRegistroAcceso.listarPorId
 );
 
-router.post('/',
-    body('id_usuario')
-        .notEmpty().withMessage('El ID del usuario es obligatorio')
-        .isInt().withMessage('El ID del usuario debe ser un número entero'),
-    body('accion')
-        .notEmpty().withMessage('La acción es obligatoria')
-        .isString().withMessage('La acción debe ser una cadena de texto'),
-    controladorRegistroAcceso.guardar
-);
 
-router.delete('/',
-    query('id_log')
-        .notEmpty().withMessage('El ID del registro es obligatorio')
-        .isInt().withMessage('El ID debe ser un número entero'),
-    controladorRegistroAcceso.eliminar
-);
 
 module.exports = router;

@@ -44,7 +44,7 @@ exports.guardar = async (req, res) => {
     if (!validacion.isEmpty()) {
         return res.status(400).json(validacion.errors);
     }
-    const { nombre, pais, sector, anio_fundacion, empleados, sito_web, linkedin, descripcion, imagen_empresa, id_tendencia } = req.body;
+    const { nombre, pais, sector, anio_fundacion, empleados, sito_web, linkedin, descripcion, id_tendencia } = req.body;
     try {
         const nuevaEmpresa = await Empresa.create({
             nombre,
@@ -55,7 +55,6 @@ exports.guardar = async (req, res) => {
             sito_web,
             linkedin,
             descripcion,
-            imagen_empresa,
             id_tendencia
         });
         res.status(201).json(nuevaEmpresa);

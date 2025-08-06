@@ -25,7 +25,7 @@ router.use('/pais', rutasPais);
 router.use('/producto-servicio', rutasProductoServicio);
 router.use('/tendencia-tecnologica', rutasTendenciaTecnologica);
 router.use('/usuario', rutasUsuario);
-router.use('/rutasFrontend', rutasFrontend);
+router.use('/frontend', rutasFrontend);
 
 // Exportar el router
 module.exports = router;

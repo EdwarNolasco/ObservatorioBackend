@@ -45,8 +45,6 @@ const router = express.Router();
  *                     type: string
  *                   descripcion:
  *                     type: string
- *                   imagen_empresa:
- *                     type: string
  *                   id_tendencia:
  *                     type: integer
  *                   TendenciaTecnologica:
@@ -109,8 +107,6 @@ const router = express.Router();
  *                 type: string
  *               descripcion:
  *                 type: string
- *               imagen_empresa:
- *                 type: string
  *               id_tendencia:
  *                 type: integer
  *     responses:
@@ -155,8 +151,6 @@ const router = express.Router();
  *               linkedin:
  *                 type: string
  *               descripcion:
- *                 type: string
- *               imagen_empresa:
  *                 type: string
  *               id_tendencia:
  *                 type: integer
@@ -226,8 +220,6 @@ router.post('/',
     body('descripcion')
         .optional()
         .isString().withMessage('La descripción debe ser una cadena de texto'),
-    body('imagen_empresa')
-        .optional(),
     controladorEmpresa.guardar
 );
 router.put('/',
@@ -258,8 +250,6 @@ router.put('/',
     body('descripcion')
         .optional()
         .isString().withMessage('La descripción debe ser una cadena de texto'),
-    body('imagen_empresa')
-        .optional(),
     controladorEmpresa.editar
 );  
 router.delete('/',

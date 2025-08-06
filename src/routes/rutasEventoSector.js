@@ -87,8 +87,6 @@ const router = express.Router();
  *                 description: Código de país afectado (CHAR(3))
  *               empresa_relacionada:
  *                 type: integer
- *               imagen_evento:
- *                 type: string
  *     responses:
  *       201:
  *         description: Evento de sector creado correctamente
@@ -134,8 +132,6 @@ const router = express.Router();
  *                 description: Código de país afectado (CHAR(3))
  *               empresa_relacionada:
  *                 type: integer
- *               imagen_evento:
- *                 type: string
  *     responses:
  *       200:
  *         description: Evento de sector actualizado correctamente
@@ -201,9 +197,6 @@ const router = express.Router();
  *         empresa_relacionada:
  *           type: integer
  *           description: ID de la empresa relacionada
- *         imagen_evento:
- *           type: string
- *           description: URL o nombre de la imagen
  *         Empresa:
  *           type: object
  *           properties:
@@ -217,7 +210,6 @@ const router = express.Router();
  *         fecha: "2025-08-05"
  *         pais_afectado: "ARG"
  *         empresa_relacionada: 2
- *         imagen_evento: "evento.jpg"
  *         Empresa:
  *           nombre: "Empresa S.A."
  */
@@ -252,9 +244,6 @@ router.post('/',
     body('descripcion')
         .optional()
         .isString().withMessage('La descripción debe ser una cadena de texto'),
-    body('imagen_evento')
-        .optional()
-        .isString().withMessage('La imagen debe ser una cadena de texto'),
     controladorEventoSector.guardar
 );
 
@@ -282,9 +271,6 @@ router.put('/',
     body('descripcion')
         .optional()
         .isString().withMessage('La descripción debe ser una cadena de texto'),
-    body('imagen_evento')
-        .optional()
-        .isString().withMessage('La imagen debe ser una cadena de texto'),
     controladorEventoSector.editar
 );
 

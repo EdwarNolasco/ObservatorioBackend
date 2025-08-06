@@ -35,8 +35,6 @@ const controladorTendenciaTecnologica = require('../controllers/controladorTende
  *                   relevancia_region:
  *                     type: string
  *                     enum: [Alta, Media, Baja]
- *                   imagen_tendencia:
- *                     type: string
  */
 
 /**
@@ -83,8 +81,6 @@ const controladorTendenciaTecnologica = require('../controllers/controladorTende
  *               relevancia_region:
  *                 type: string
  *                 enum: [Alta, Media, Baja]
- *               imagen_tendencia:
- *                 type: string
  *     responses:
  *       201:
  *         description: Tendencia creada
@@ -123,8 +119,6 @@ const controladorTendenciaTecnologica = require('../controllers/controladorTende
  *               relevancia_region:
  *                 type: string
  *                 enum: [Alta, Media, Baja]
- *               imagen_tendencia:
- *                 type: string
  *     responses:
  *       200:
  *         description: Tendencia actualizada correctamente
@@ -175,9 +169,6 @@ router.post('/',
     body('relevancia_region')
         .notEmpty().withMessage('La relevancia regional de la tendencia es obligatoria')
         .isIn(['Alta', 'Media', 'Baja']).withMessage('La relevancia regional debe ser: Alta, Media o Baja'),
-    body('imagen_tendencia')
-        .optional()
-        .isString().withMessage('La imagen de la tendencia debe ser una cadena de texto'),
     controladorTendenciaTecnologica.guardar
 );
 
@@ -194,9 +185,6 @@ router.put('/',
     body('relevancia_region')
         .notEmpty().withMessage('La relevancia regional de la tendencia es obligatoria')
         .isIn(['Alta', 'Media', 'Baja']).withMessage('La relevancia regional debe ser: Alta, Media o Baja'),
-    body('imagen_tendencia')
-        .optional()
-        .isString().withMessage('La imagen de la tendencia debe ser una cadena de texto'),
     controladorTendenciaTecnologica.editar
 );
 

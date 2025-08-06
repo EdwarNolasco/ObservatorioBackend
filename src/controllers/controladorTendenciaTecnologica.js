@@ -36,13 +36,12 @@ exports.guardar = async (req, res) => {
     if (!validacion.isEmpty()) {
         return res.status(400).json(validacion.errors);
     }
-    const { nombre, descripcion, relevancia_region, imagen_tendencia } = req.body;
+    const { nombre, descripcion, relevancia_region } = req.body;
     try {
         const nuevaTendencia = await TendenciaTecnologica.create({
             nombre,
             descripcion,
-            relevancia_region,
-            imagen_tendencia
+            relevancia_region
         });
         res.status(201).json(nuevaTendencia);
     } catch (error) {

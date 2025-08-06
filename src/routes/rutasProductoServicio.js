@@ -84,8 +84,6 @@ const router = express.Router();
  *               fecha_lanzamiento:
  *                 type: string
  *                 format: date
- *               imagen_producto:
- *                 type: string
  *     responses:
  *       201:
  *         description: Producto o servicio creado correctamente
@@ -126,8 +124,6 @@ const router = express.Router();
  *               fecha_lanzamiento:
  *                 type: string
  *                 format: date
- *               imagen_producto:
- *                 type: string
  *     responses:
  *       200:
  *         description: Producto o servicio actualizado correctamente
@@ -189,9 +185,6 @@ const router = express.Router();
  *           type: string
  *           format: date
  *           description: Fecha de lanzamiento
- *         imagen_producto:
- *           type: string
- *           description: URL o nombre de la imagen
  *         Empresa:
  *           type: object
  *           properties:
@@ -204,7 +197,6 @@ const router = express.Router();
  *         tipo: "Servicio"
  *         descripcion: "Descripción del producto o servicio"
  *         fecha_lanzamiento: "2025-08-05"
- *         imagen_producto: "imagen.jpg"
  *         Empresa:
  *           nombre: "Empresa S.A."
  */
@@ -237,9 +229,6 @@ router.post('/',
     body('fecha_lanzamiento')
         .optional()
         .isISO8601().withMessage('La fecha de lanzamiento debe ser una fecha válida'),
-    body('imagen_producto')
-        .optional()
-        .isString().withMessage('La imagen debe ser una cadena de texto'),
     controladorProductoServicio.guardar
 );
 
@@ -261,9 +250,6 @@ router.put('/',
     body('fecha_lanzamiento')
         .optional()
         .isISO8601().withMessage('La fecha de lanzamiento debe ser una fecha válida'),
-    body('imagen_producto')
-        .optional()
-        .isString().withMessage('La imagen debe ser una cadena de texto'),
     controladorProductoServicio.editar
 );
 

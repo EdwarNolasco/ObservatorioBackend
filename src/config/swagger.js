@@ -23,7 +23,24 @@ const swaggerDefinition = {
         bearerFormat: 'JWT',
       },
     },
-},
+    schemas: {
+      Empresa: {
+        type: 'object',
+        properties: {
+          id_empresa: { type: 'integer' },
+          nombre: { type: 'string' },
+          pais: { type: 'string' },
+          sector: { type: 'string' },
+          anio_fundacion: { type: 'integer' },
+          empleados: { type: 'integer' },
+          sito_web: { type: 'string' },
+          linkedin: { type: 'string' },
+          descripcion: { type: 'string' },
+          id_tendencia: { type: 'integer' }
+        }
+      }
+    }
+  },
   security: [
     {
       bearerAuth: [],

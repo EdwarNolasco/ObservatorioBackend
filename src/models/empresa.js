@@ -46,10 +46,6 @@ const Empresa = db.define('Empresa', {
         type: DataTypes.INTEGER,
         allowNull: true,
     },
-    imagen_empresa: {
-        type: DataTypes.STRING,
-        allowNull: true,
-    },
 }, {
     tableName: 'empresas',
     timestamps: true,

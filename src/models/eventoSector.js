@@ -35,10 +35,6 @@ const EventoSector = db.define('EventoSector', {
         type: DataTypes.INTEGER,
         allowNull: true
     },
-    imagen_evento: {
-    type: DataTypes.STRING,
-    allowNull: true,
-    },
 }, {
     tableName: 'eventos_sectores',
     timestamps: true
