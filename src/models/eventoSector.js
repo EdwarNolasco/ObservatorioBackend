@@ -20,23 +20,20 @@ const EventoSector = db.define('EventoSector', {
     },
     tipo_evento: {
         type: DataTypes.ENUM('Inversión', 'Hackeo', 'Adquisición', 'Cierre', 'Otro'),
-        allowNull: false
+        allowNull: false,
+        defaultValue: 'Inversión'
     },
     fecha: {
         type: DataTypes.DATE,
         allowNull: false
     },
-    /*pais_afectado: {
+    pais_afectado: {
         type: DataTypes.CHAR(3),
         allowNull: false
-    },*/
+    },
     empresa_relacionada: {
         type: DataTypes.INTEGER,
         allowNull: true
-    },
-    imagen_evento: {
-    type: DataTypes.STRING,
-    allowNull: true,
     },
 }, {
     tableName: 'eventos_sectores',

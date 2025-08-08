@@ -20,7 +20,7 @@ const Usuario = db.define('Usuario', {
             isEmail: true
         }
     },
-    password_hash: {
+    password: {
         type: DataTypes.STRING(255),
         allowNull: false,
     },

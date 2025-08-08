@@ -4,6 +4,7 @@ const router = express.Router();
 const rutasAuth = require('./rutasAuth');
 const rutasRegistroAcceso = require('./rutasRegistroAcceso');
 const rutasEmpresa = require('./rutasEmpresa');
+
 const rutasEncuestaDemanda = require('./rutasEncuestaDemanda');
 const rutasEventoSector = require('./rutasEventoSector');
 const rutasIndicadorEconomico = require('./rutasIndicadorEconomico');
@@ -24,7 +25,7 @@ router.use('/pais', rutasPais);
 router.use('/producto-servicio', rutasProductoServicio);
 router.use('/tendencia-tecnologica', rutasTendenciaTecnologica);
 router.use('/usuario', rutasUsuario);
-router.use('/rutasFrontend', rutasFrontend);
+router.use('/frontend', rutasFrontend);
 
 // Exportar el router
 module.exports = router;

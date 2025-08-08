@@ -1,6 +1,6 @@
 const {DataTypes} = require('sequelize');
 const db = require('../config/db.js');
-const ProductoServicio = require('./productoservicio.js');
+const ProductoServicio = require('./productoServicio.js');
 const Pais = require('./pais.js');
 
 const EncuestaDemanda = db.define('EncuestaDemanda', {

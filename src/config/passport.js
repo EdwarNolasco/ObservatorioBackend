@@ -1,15 +1,10 @@
 require('dotenv').config();
+const Usuario = require('../models/usuario');
 const passport = require('passport');
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const jwt = require('jsonwebtoken');
 const clave = process.env.CLAVE;
-const Usuario = require('../models/usuario');
-
-exports.getToken = (data) => {
-  return jwt.sign({ ...data }, clave, { expiresIn: '30m' });
-};
-
 
 //acepta token desde cookies y desde headers
 const opts = {
@@ -53,4 +48,8 @@ passport.use(
   })
 );
 
-module.exports = passport; // Exportar el objeto passport para usarlo en app.js
+// Exportar tanto passport como getToken
+module.exports = passport;
+module.exports.getToken = (data) => {
+  return jwt.sign({ ...data }, clave, { expiresIn: '30m' });
+};

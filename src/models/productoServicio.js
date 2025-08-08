@@ -29,10 +29,6 @@ const ProductoServicio = db.define('ProductoServicio', {
         type: DataTypes.DATE,
         allowNull: true
     },
-    imagen_producto: {
-    type: DataTypes.STRING,
-    allowNull: true,
-    },
 }, {
     tableName: 'productos_servicios',
     timestamps: true

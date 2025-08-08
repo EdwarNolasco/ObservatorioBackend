@@ -20,10 +20,6 @@ const TendenciaTecnologica = db.define('TendenciaTecnologica', {
         type: DataTypes.ENUM('Alta', 'Media', 'Baja'),
         allowNull: false,
     },
-    imagen_tendencia: {
-    type: DataTypes.STRING,
-    allowNull: true,
-    },
 }, {
     tableName: 'tendencias_tecnologicas',
     timestamps: true

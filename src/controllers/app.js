@@ -1,19 +1,16 @@
 const express = require('express');
 const morgan = require('morgan');
-const cookieParser = require('cookie-parser');  
-const { opts } = require('./config/passport.js');
-const { JwtStrategy, ExtractJwt } = require('passport-jwt');
-const passport = require('passport');
-
+const cookieParser = require('cookie-parser');
 const db = require('./config/db.js');
+const passport = require('./config/passport.js');
 
 
 const Empresa = require('./models/empresa.js');
 const EncuestaDemanda = require('./models/encuestaDemanda.js');
-const EventoSector = require('./models/eventoSector.js');
+const EventoSector = require('./models/EventoSector.js');
 const IndicadorEconomico = require('./models/indicadorEconomico.js');
 const Pais = require('./models/pais.js');
-const ProductoServicio = require('./models/productoServicio.js');
+const ProductoServicio = require('./models/productoservicio.js');
 const RegistroAcceso = require('./models/registroAcceso.js');
 const TendenciaTecnologica = require('./models/tendenciatecnologica.js');
 const Usuario = require('./models/usuario.js');
@@ -113,6 +110,20 @@ app.get('/swagger.json', (req, res) => {
   res.send(swaggerSpec);
 });
 
+app.use((err, req, res, next) => {
+  if (err instanceof multer.MulterError || err.message.includes('Solo se permiten imágenes')) {
+    return res.status(400).json({ error: err.message });
+  }
+
+  // Mostrar mensaje y stack si estamos en desarrollo
+  console.error('Error no controlado:', err);
+
+  res.status(500).json({
+    error: 'Error interno del servidor',
+    message: err.message,
+    stack: err.stack
+  });
+});
 
 app.listen(app.get('port'), () => {
   console.log('Servidor iniciado en el puerto ' + app.get('port'));
